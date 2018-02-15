@@ -1,0 +1,22 @@
+page-home {
+    .master{
+        background: #000;
+        color: #ffffff;
+        
+    }
+    .center{
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+    .alignRight{
+        margin-right:auto;
+        margin-left:89%;
+        display: inline-block;  
+    }
+    .alignTop{
+        margin-top: 10px;
+        display: inline-block;
+
+    }
+}
