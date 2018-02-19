@@ -41,8 +41,8 @@ export class ListaPage {
   ordenaLista(){
     this.lista.sort(
       function(a,b){
-        var nomeA = a.title;
-        var nomeB = b.title;
+        var nomeA = a.title.toLowerCase();
+        var nomeB = b.title.toLowerCase();
         if (nomeA < nomeB)
           return -1;
         if (nomeA > nomeB)
