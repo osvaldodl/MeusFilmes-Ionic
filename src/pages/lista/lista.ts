@@ -33,11 +33,23 @@ export class ListaPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListaPage');
+    this.ordenaLista();
        
   }
 
   
-  
+  ordenaLista(){
+    this.lista.sort(
+      function(a,b){
+        var nomeA = a.title;
+        var nomeB = b.title;
+        if (nomeA < nomeB)
+          return -1;
+        if (nomeA > nomeB)
+           return 1;
+     return 0;
+   });
+  }
 
 
 

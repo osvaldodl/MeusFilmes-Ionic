@@ -17,7 +17,6 @@ export class HomePage {
   constructor(public navCtrl: NavController, public menuCtrl: MenuController,
      public platform:Platform, public prefs: AppPreferences, private listaProvider: ListaProvider) {
     this.carregaFilmes();
-    this.platform.ready().then(()=> this.ordenaLista());
     this.platform.ready().then(() => prefs.store(null,'lista', this.lista));
 
 
@@ -30,18 +29,7 @@ export class HomePage {
       this.listaProvider.getFilmes(i).then(x => this.lista= y.concat(this.lista, x.results)) ;  
     }
 
-  ordenaLista(){
-      this.lista.sort(
-        function(a,b){
-          var nomeA = a.title;
-          var nomeB = b.title;
-          if (nomeA < nomeB)
-            return -1;
-          if (nomeA > nomeB)
-             return 1;
-       return 0;
-     });
-    }
+  
 
   toLista(event){
     this.navCtrl.push(ListaPage, {});
