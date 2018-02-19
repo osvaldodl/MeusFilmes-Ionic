@@ -1,0 +1,60 @@
+<!--
+  Generated template for the DetalhesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-title class="alignTop">
+            Detalhes
+        </ion-title>
+        <button ion-button style="float: right;" icon-only color="dark"   (click)="backHome($event)">
+          <ion-icon name="home"></ion-icon>
+        </button>
+        <button ion-button style="float: right;" icon-only color="dark"   (click)="favoritar($event)">
+            <ion-icon name="star" [ngStyle]="{'color':corIcone}"></ion-icon>
+            
+        </button>
+        <button ion-button style="float: right;" icon-only color="dark"   (click)="share($event)">
+            <ion-icon name="md-share"></ion-icon>
+        </button>
+        
+      </ion-toolbar> 
+</ion-header>
+
+
+  
+  <ion-content padding [style.background] ="'url(https://image.tmdb.org/t/p/w500/'+lista.backdrop_path+')'" [style.background-size]="'100% ' + shouldHeight" >   
+      <a href="https://www.youtube.com/watch?v={{trailer}}"><img src="https://image.tmdb.org/t/p/w500{{lista.poster_path}}" alt="themoviedb.png" class="imagem"></a>
+      <div text-center>
+        <h1>{{lista.title}}</h1>
+      </div>
+      <p text-center>Avalaiação dos Usuários:</p>
+        <div class="c100 p{{avaliacao}} center small green">
+            <span>{{avaliacao}}%</span>
+            <div class="slice">
+              <div class="bar"></div>
+              <div class="fill"></div>
+            </div>
+          </div>
+        <div text-center>
+        <p>Idioma: {{getIdioma(lista.original_language)}}
+        <br>Titulo Original: {{lista.original_title}}
+        <br>Lançamento: {{dataConvertida(lista.release_date)}}
+        </p>
+      </div>
+      <ion-list no-lines>
+        <h1 text-center>Gêneros</h1>    
+        <p text-center *ngFor="let listGeneros of lista.genre_ids">{{getGeneroPorId(listGeneros)}}</p>
+      </ion-list>
+      <div text-center>
+        <h1>Sinopse</h1>
+        <br>{{lista.overview}}<br>
+      </div>  
+</ion-content>
+ 
+ 
+  

@@ -14,36 +14,38 @@
     <img src="assets/imgs/inicio.jpeg" alt="inicio.jpeg" class="center">
   
 
-<ion-list>
-  <ion-item color="preto" no-lines>
-  <button ion-button icon-left color="preto"  (click)="toLista($event)"  >
-    <ion-icon name="list"></ion-icon>
-    Lista
-  </button>
-  </ion-item>
-
-<ion-item color="preto" no-lines>
-  <button ion-button icon-left color="preto" (click)="toHistorico($event)"  > 
-    <ion-icon name="clock"></ion-icon>
-    Historico
-  </button>
-</ion-item>
-
-<ion-item color="preto" no-lines>
-  <button ion-button icon-left color="preto" (click)="toFavoritos($event)"  >
-    <ion-icon name="star"></ion-icon>
-    Favoritos
-  </button>
-</ion-item>
-
-  <ion-item color="preto" no-lines >
-      <button ion-button icon-left color="preto" (click)="toCreditos($event)"  >
-          <ion-icon name="trophy"></ion-icon>
-          Creditos
+    <ion-list>
+        <ion-item color="preto" no-lines>
+        <button ion-button icon-left color="preto"  (click)="toLista($event)"  class="center" >
+          <ion-icon name="list"></ion-icon>
+          Lista
         </button>
-  </ion-item>
+        </ion-item>
+      
+      <ion-item color="preto" no-lines>
+        <button ion-button icon-left color="preto" (click)="toHistorico($event)" class="center" > 
+          <ion-icon name="clock"></ion-icon>
+          Historico
+        </button>
+      </ion-item>
+      
+      <ion-item color="preto" no-lines>
+        <button ion-button icon-left color="preto" (click)="toFavoritos($event)" class="center" >
+          <ion-icon name="star"></ion-icon>
+          Favoritos
+        </button>
+      </ion-item>
+      
+        <ion-item color="preto" no-lines >
+            <button ion-button icon-left color="preto" (click)="toCreditos($event)" class="center" >
+                <ion-icon name="trophy"></ion-icon>
+                Creditos
+              </button>
+        </ion-item>
+      
+      </ion-list>
 
-</ion-list>
+
 
  
 </ion-content>
