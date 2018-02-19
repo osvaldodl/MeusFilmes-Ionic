@@ -52,7 +52,8 @@ import { TrailerProvider } from '../providers/trailer/trailer';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ListaProvider,
     TrailerProvider,
-    SocialSharing
+    SocialSharing,
+    AppPreferences
   ]
 })
 export class AppModule {}
