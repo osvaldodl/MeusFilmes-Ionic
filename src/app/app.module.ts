@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import {HttpClientModule} from '@angular/common/http'
 import{ SocialSharing} from '@ionic-native/social-sharing'
+import { AppPreferences } from '@ionic-native/app-preferences';
 
 
 import { MyApp } from './app.component';
@@ -25,7 +26,8 @@ import { TrailerProvider } from '../providers/trailer/trailer';
     FavoritosPage,
     HistoricoPage,
     ListaPage, 
-    DetalhesPage
+    DetalhesPage,
+
 
   ],
   imports: [

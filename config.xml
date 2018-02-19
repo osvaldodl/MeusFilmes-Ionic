@@ -84,4 +84,5 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
     <engine name="browser" spec="~5.0.3" />
     <allow-navigation href="http://192.168.137.1:8100" />
+    <plugin name="cordova-plugin-app-preferences" spec="~0.99.3" />
 </widget>
