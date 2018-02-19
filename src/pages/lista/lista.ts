@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { ListaProvider } from '../../providers/lista/lista';
 import { DetalhesPage } from '../detalhes/detalhes';
+import { AppPreferences } from '@ionic-native/app-preferences';
+
 
 /**
  * Generated class for the ListaPage page.
@@ -24,24 +26,28 @@ export class ListaPage {
   
  
   
-  constructor(private listaProvider: ListaProvider, public navCtrl: NavController, public navParams: NavParams) {
-    
+  constructor( public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public prefs: AppPreferences) {
+    this.platform.ready().then(() => prefs.fetch(null,'lista').then(x => this.lista = x));
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListaPage');
-    this.carregaFilmes();
+    this.organizaLista();
    
   }
 
-  carregaFilmes(){   
-    var y = [];
-    for(var i = 1; i<26; i++)
-      this.listaProvider.getFilmes(i).then(x => this.lista= y.concat(this.lista, x.results)) ;  
-    }
+  organizaLista(){
+    this.lista.sort(function(a, b){
+      var nameA=a.title.toLowerCase(), nameB=b.title.toLowerCase();
+      if (nameA < nameB) 
+       return -1;
+      if (nameA > nameB)
+       return 1;
+      return 0; 
+     });
 
-
-
+  }
+  
 
   backHome(event){
     this.navCtrl.pop();
