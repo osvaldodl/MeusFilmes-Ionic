@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController, Platform } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { ListaPage } from '../lista/lista';
 import { CreditosPage } from '../creditos/creditos';
 import { FavoritosPage } from '../favoritos/favoritos';
@@ -14,7 +14,7 @@ import { ListaProvider } from '../../providers/lista/lista';
 export class HomePage {
 
   lista = []
-  constructor(public navCtrl: NavController, public menuCtrl: MenuController,
+  constructor(public navCtrl: NavController,
      public platform:Platform, public prefs: AppPreferences, private listaProvider: ListaProvider) {
     this.carregaFilmes();
     this.platform.ready().then(() => prefs.store(null,'lista', this.lista));
@@ -45,18 +45,6 @@ export class HomePage {
 
   toHistorico(event){
     this.navCtrl.push(HistoricoPage, {})
-  }
-
-  openMenu() {
-    this.menuCtrl.open();
-  }
- 
-  closeMenu() {
-    this.menuCtrl.close();
-  }
- 
-  toggleMenu() {
-    this.menuCtrl.toggle();
   }
 
 }
