@@ -15,7 +15,7 @@
       </ion-toolbar> 
 </ion-header>
 
-<ion-content padding>
+<ion-content>
     <ion-list  >
         <button ion-item *ngFor="let list of lista; let i=index" (click)="itemTapped($event, list)">
         {{i+1}}. {{list.title}}  

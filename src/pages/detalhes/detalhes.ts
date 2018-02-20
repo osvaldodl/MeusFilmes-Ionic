@@ -1,7 +1,8 @@
+import { AppPreferences } from '@ionic-native/app-preferences';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { TrailerProvider } from '../../providers/trailer/trailer';
-import {SocialSharing} from  '@ionic-native/social-sharing'
+import { SocialSharing } from  '@ionic-native/social-sharing'
 /**
  * Generated class for the DetalhesPage page.
  *
@@ -16,13 +17,19 @@ import {SocialSharing} from  '@ionic-native/social-sharing'
 })
 export class DetalhesPage {
   lista = [];
+  favoritos = [];
   trailer;
   avaliacao = 0;
   corIcone = 'white';
   shouldHeight = document.body.clientHeight + 'px' ;
  
     
-  constructor(private trailerProvider:TrailerProvider,public navCtrl: NavController, public navParams: NavParams,private socialSharing: SocialSharing) {
+  constructor(private trailerProvider:TrailerProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private socialSharing: SocialSharing,
+    public prefs: AppPreferences, public platform: Platform ) {
+
     this.lista = this.navParams.get('lista');
   }
 
@@ -34,8 +41,12 @@ export class DetalhesPage {
   }
 
   backHome(event){
+    this.navCtrl.popToRoot();
+  }
+
+  goBack(event){
     this.navCtrl.pop();
-    }
+  }
 
     getIdioma(idioma): String{
     if(idioma === "en")
@@ -49,13 +60,14 @@ export class DetalhesPage {
     }
 
     share(){
-        // todo
+        this.socialSharing.share('Compartilhar via:','confira no site:', '', "https://www.themoviedb.org/movie/"+this.lista['id']);
     }
 
     favoritar(){
-        //todo
-        this.trocaCorIcone();
-        this.socialSharing.share('Compartilhar via:','confira no site:', '', "https://www.themoviedb.org/movie/"+this.lista['id']);
+        this.platform.ready().then(() => this.prefs.fetch(null,'favoritos').then(x => this.favoritos = x )).catch(erro => console.log("Nao foi possivel recuperar dados"));
+        this.favoritos.push(this.lista);
+        this.platform.ready().then(() => this.prefs.store(null,'favoritos', this.favoritos)).catch(erro => console.log("Nao foi possivel gravar"));
+        this.trocaCorIcone();       
     }
 
     trocaCorIcone(){
@@ -64,9 +76,9 @@ export class DetalhesPage {
         }else{
             this.corIcone = 'white';
         }
-
     }
-  getGeneroPorId(id) {
+
+    getGeneroPorId(id) {
       switch (id) {
           case 28:
               return "Ação";

@@ -1,5 +1,7 @@
+import { AppPreferences } from '@ionic-native/app-preferences';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { DetalhesPage } from '../detalhes/detalhes';
 
 /**
  * Generated class for the FavoritosPage page.
@@ -15,7 +17,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class FavoritosPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  lista = [];
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public prefs: AppPreferences,
+    public platform: Platform) {
+    this.platform.ready().then(() => prefs.fetch(null,'favoritos').then(x => this.lista = x)).catch(erro => console.log("Nao foi possivel recuperar dados"));
+    this.platform.ready().then(() => console.log(this.lista));
   }
 
   ionViewDidLoad() {
@@ -24,6 +33,10 @@ export class FavoritosPage {
 
   backHome(event){
     this.navCtrl.pop();
-    }
+  }
+
+  itemTapped(event, list){
+    this.navCtrl.push(DetalhesPage, {lista: list})
+  }
 
 }

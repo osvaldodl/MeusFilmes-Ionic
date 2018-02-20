@@ -17,18 +17,13 @@ import { AppPreferences } from '@ionic-native/app-preferences';
   templateUrl: 'lista.html',
 })
 
-
-
 export class ListaPage {
   lista= [];
- 
-  
- 
+  historico = [];
   
   constructor( public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public prefs: AppPreferences) {
     this.platform.ready().then(() => prefs.fetch(null,'lista').then(x =>this.lista = x));
-    
-   this.platform.ready().then(() => console.log(this.lista));
+    this.platform.ready().then(() => console.log(this.lista));
   }
 
   ionViewDidLoad() {
@@ -36,7 +31,6 @@ export class ListaPage {
     this.ordenaLista();
        
   }
-
   
   ordenaLista(){
     this.lista.sort(
@@ -51,15 +45,14 @@ export class ListaPage {
    });
   }
 
-
-
-
   backHome(event){
     this.navCtrl.pop();
-    }
-
+  }
 
   itemTapped(event, list){
+    this.platform.ready().then(() => this.prefs.fetch(null,'historico').then(x => this.historico = x )).catch(erro => console.log("Nao foi possivel recuperar dados"));
+    this.historico.push(list);
+    this.platform.ready().then(() => this.prefs.store(null,'historico', this.historico)).catch(erro => console.log("Nao foi possivel gravar"));
     this.navCtrl.push(DetalhesPage, {lista: list})
   }
 }
