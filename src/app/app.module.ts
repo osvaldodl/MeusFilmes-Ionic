@@ -18,6 +18,7 @@ import { ListaProvider } from '../providers/lista/lista';
 import { DetalhesPage } from '../pages/detalhes/detalhes';
 import { TrailerProvider } from '../providers/trailer/trailer';
 
+
 @NgModule({
   declarations: [
     MyApp,
