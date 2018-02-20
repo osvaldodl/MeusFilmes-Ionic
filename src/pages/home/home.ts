@@ -16,13 +16,13 @@ export class HomePage {
   lista = []
   constructor(public navCtrl: NavController,
      public platform:Platform, public prefs: AppPreferences, private listaProvider: ListaProvider) {
-    this.platform.ready().then(() => prefs.fetch(null,'lista').then(x => this.lista = x));
     if(this.lista.length == 0){
       this.carregaFilmes();
     }
     else{
       console.log("Nao e necessario baixar os dados");
     }
+    this.platform.ready().then(() => this.prefs.store(null,'historico', [])).catch(erro => console.log("Nao foi possivel gravar"));
   }
   
   carregaFilmes(){   
@@ -40,6 +40,7 @@ export class HomePage {
 
   toCreditos(event){
     this.navCtrl.push(CreditosPage, {})
+    this.platform.ready().then(() => this.prefs.fetch(null,'historico').then(x => console.log(x)));
   }
 
   toFavoritos(event){
