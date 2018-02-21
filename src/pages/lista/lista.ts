@@ -22,9 +22,8 @@ export class ListaPage {
   historico = [];
   
   constructor( public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public prefs: AppPreferences) {
-    this.platform.ready().then(() => prefs.fetch(null,'lista').then(x =>this.lista = x));
-    this.platform.ready().then(() => this.prefs.fetch(null,'historico').then(x => this.historico = x )).catch(erro => console.log("Nao foi possivel recuperar dados"));
-  
+    this.platform.ready().then(() => prefs.fetch(null,'lista').then(x => this.lista = x)).catch(erro => console.log("Nao foi possivel recuperar dados"));
+    this.platform.ready().then(() => prefs.fetch(null,'historico').then(x => this.historico = x )).catch(erro => console.log("Nao foi possivel recuperar dados"));  
   }
 
   ionViewDidLoad() {
@@ -51,8 +50,8 @@ export class ListaPage {
   }
 
   itemTapped(event, list){
-     this.platform.ready().then(() => this.historico.push(list)) ;
+    this.platform.ready().then(() => this.historico.push(list)) ;
     this.platform.ready().then(() => this.prefs.store(null,'historico', this.historico)).catch(erro => console.log("Nao foi possivel gravar"));
-     this.navCtrl.push(DetalhesPage, {lista: list})
+    this.navCtrl.push(DetalhesPage, {lista: list})
   }
 }

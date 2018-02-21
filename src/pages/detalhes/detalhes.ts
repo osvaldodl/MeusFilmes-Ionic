@@ -27,10 +27,12 @@ export class DetalhesPage {
   constructor(private trailerProvider:TrailerProvider,
     public navCtrl: NavController,
     public navParams: NavParams,
-    private socialSharing: SocialSharing,
+    public socialSharing: SocialSharing,
     public prefs: AppPreferences, public platform: Platform ) {
 
     this.lista = this.navParams.get('lista');
+    this.platform.ready().then(() => this.prefs.fetch(null,'favoritos').then(x => this.favoritos = x)).catch(erro => console.log("Nao foi possivel recuperar dados"));
+    
   }
 
   ionViewDidLoad() {
@@ -60,14 +62,13 @@ export class DetalhesPage {
     }
 
     share(){
-        this.socialSharing.share('Compartilhar via:','confira no site:', '', "https://www.themoviedb.org/movie/"+this.lista['id']);
+        this.platform.ready().then(() => this.socialSharing.share('Compartilhar via:','confira no site:', '', "https://www.themoviedb.org/movie/"+this.lista['id'])).catch(erro => console.log("Função não disponível"));
     }
 
-    favoritar(){
-        this.platform.ready().then(() => this.prefs.fetch(null,'favoritos').then(x => this.favoritos = x )).catch(erro => console.log("Nao foi possivel recuperar dados"));
-        this.favoritos.push(this.lista);
+    favoritar(event){
+        this.platform.ready().then(() => this.favoritos.push(this.lista)).catch(erro => console.log("Não foi possivel adicionar favorito"));
         this.platform.ready().then(() => this.prefs.store(null,'favoritos', this.favoritos)).catch(erro => console.log("Nao foi possivel gravar"));
-        this.trocaCorIcone();       
+        this.trocaCorIcone();
     }
 
     trocaCorIcone(){
