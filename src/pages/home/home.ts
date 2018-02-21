@@ -22,7 +22,7 @@ export class HomePage {
     else{
       console.log("Nao e necessario baixar os dados");
     }
-    this.platform.ready().then(() => this.prefs.store(null,'historico', [])).catch(erro => console.log("Nao foi possivel gravar"));
+    
   }
   
   carregaFilmes(){   
