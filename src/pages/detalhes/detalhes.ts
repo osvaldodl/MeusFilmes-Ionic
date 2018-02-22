@@ -81,13 +81,7 @@ export class DetalhesPage {
   }
 
   goBack(event){
-    
-    if(this.parent == 'favoritos'){
-          this.navCtrl.push(FavoritosPage);
-    }
-    else{
-        this.navCtrl.pop();      
-    }      
+        this.navCtrl.pop();           
   }
 
     getIdioma(idioma): String{
@@ -187,6 +181,7 @@ export class DetalhesPage {
            console.log(x.results[0].key);
           }else{
             this.trailer = '';
+            this.avisoToast("Trailer indisponível");
     }}).catch(erro => {
         console.log("Trailer indisponível");
         this.avisoToast("Trailer indisponível");

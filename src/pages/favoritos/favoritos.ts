@@ -18,18 +18,22 @@ import { DetalhesPage } from '../detalhes/detalhes';
 export class FavoritosPage {
 
   lista = [];
+  preferences ;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public prefs: AppPreferences,
     public platform: Platform) {
-    this.platform.ready().then(() => prefs.fetch(null,'favoritos').then(x => {
-      this.lista = x || [];
-      this.ordenaLista();
-      console.log(this.lista);
-    })).catch(erro => console.log("Nao foi possivel recuperar dados"));
+      this.preferences = prefs;
+    
   }
-
+  ionViewDidEnter(){ 
+     this.platform.ready().then(() => this.preferences.fetch(null,'favoritos').then(x => {
+    this.lista = x || [];
+    this.ordenaLista();
+    console.log(this.lista);
+  })).catch(erro => console.log("Nao foi possivel recuperar dados"));
+}
   ordenaLista(){
     this.lista.sort(
       function(a,b){

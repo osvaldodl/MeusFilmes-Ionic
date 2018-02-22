@@ -18,13 +18,17 @@ import { DetalhesPage } from '../detalhes/detalhes';
 export class HistoricoPage {
 
   lista = [];
-  
+  preferences;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public prefs: AppPreferences) {
-    this.platform.ready().then(() => prefs.fetch(null,'historico').then(x => this.lista = x)).catch(erro => console.log("Nao foi possivel recuperar dados"));
-    this.platform.ready().then(() => console.log(this.lista));
+   this.preferences = prefs;
   }
 
+  ionViewDidEnter(){
+    this.platform.ready().then(() => this.preferences.fetch(null,'historico').then(x => this.lista = x)).catch(erro => console.log("Nao foi possivel recuperar dados"));
+    this.platform.ready().then(() => console.log(this.lista));
+  }
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad HistoricoPage');
   }
