@@ -16,7 +16,7 @@ export class HomePage {
   lista = []
   constructor(public navCtrl: NavController,
     public platform:Platform, public prefs: AppPreferences, private listaProvider: ListaProvider) {
-     /* this.prefs.fetch(null,'lista').then(x => {
+      this.prefs.fetch(null,'lista').then(x => {
         this.lista = x || [];
         console.log(x);
         if(this.lista.length == 0){
@@ -25,8 +25,7 @@ export class HomePage {
       else{
         console.log("Nao e necessario baixar os dados");
       }
-      })).catch(erro => console.log("Nao foi possivel recuperar dados"));    */
-      this.platform.ready().then(() => this.carregaFilmes());
+      }).catch(erro => console.log("Nao foi possivel recuperar dados"));     
   }
   
   carregaFilmes(){   
