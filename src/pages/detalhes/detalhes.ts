@@ -55,9 +55,9 @@ export class DetalhesPage {
     })).catch(erro => console.log("Nao foi possivel recuperar dados"));
   }
 
-  avisoToast() {
+  avisoToast(mensagem: string) {
     let toast = this.toasty.create({
-      message: 'Função não disponível para esta plataforma :-(',
+      message: mensagem,
       duration: 2000,
       position: 'middle'
     });
@@ -104,7 +104,7 @@ export class DetalhesPage {
     share(){
         this.platform.ready().then(() => this.socialSharing.share('Compartilhar via:','confira no site:', '', "https://www.themoviedb.org/movie/"+this.lista['id'])).catch(erro => {
             console.log("Função não disponível")
-            this.avisoToast();
+            this.avisoToast("Função não disponível para esta plataforma :-(");
         });
     }
 
@@ -187,7 +187,10 @@ export class DetalhesPage {
            console.log(x.results[0].key);
           }else{
             this.trailer = '';
-    }});    
+    }}).catch(erro => {
+        console.log("Trailer indisponível");
+        this.avisoToast("Trailer indisponível");
+    });    
   }
 
 }
