@@ -18,6 +18,7 @@ import { DetalhesPage } from '../detalhes/detalhes';
 export class HistoricoPage {
 
   lista = [];
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public prefs: AppPreferences) {
     this.platform.ready().then(() => prefs.fetch(null,'historico').then(x => this.lista = x)).catch(erro => console.log("Nao foi possivel recuperar dados"));
@@ -29,11 +30,22 @@ export class HistoricoPage {
   }
 
   backHome(event){
-    this.navCtrl.pop();
+    this.navCtrl.popToRoot();
   }
 
   itemTapped(event, list){
-    this.navCtrl.push(DetalhesPage, {lista: list})
+    this.platform.ready().then(() => {
+      this.lista.unshift(list);
+      for(let i = 1; i < this.lista.length; i++){
+        if(this.lista[i]['id'] == list['id']){
+            this.lista.splice(i, 1);
+            break;
+        }
+      }
+      this.prefs.store(null,'historico', this.lista);
+      let rotulo = 'historico';
+      this.navCtrl.push(DetalhesPage, {lista: list, parent: rotulo});
+    }).catch(erro => console.log("Nao foi possivel gravar")); 
   }
 
 }

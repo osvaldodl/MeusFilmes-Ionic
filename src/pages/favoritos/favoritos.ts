@@ -23,8 +23,24 @@ export class FavoritosPage {
     public navParams: NavParams,
     public prefs: AppPreferences,
     public platform: Platform) {
-    this.platform.ready().then(() => prefs.fetch(null,'favoritos').then(x => this.lista = x)).catch(erro => console.log("Nao foi possivel recuperar dados"));
-    this.platform.ready().then(() => console.log(this.lista));
+    this.platform.ready().then(() => prefs.fetch(null,'favoritos').then(x => {
+      this.lista = x || [];
+      this.ordenaLista();
+      console.log(this.lista);
+    })).catch(erro => console.log("Nao foi possivel recuperar dados"));
+  }
+
+  ordenaLista(){
+    this.lista.sort(
+      function(a,b){
+        var nomeA = a.title.toLowerCase();
+        var nomeB = b.title.toLowerCase();
+        if (nomeA < nomeB)
+          return -1;
+        if (nomeA > nomeB)
+           return 1;
+     return 0;
+   });
   }
 
   ionViewDidLoad() {
@@ -32,11 +48,12 @@ export class FavoritosPage {
   }
 
   backHome(event){
-    this.navCtrl.pop();
+    this.navCtrl.popToRoot();
   }
 
   itemTapped(event, list){
-    this.navCtrl.push(DetalhesPage, {lista: list})
+    let rotulo = 'favoritos';    
+    this.navCtrl.push(DetalhesPage, {lista: list, parent: rotulo});
   }
 
 }

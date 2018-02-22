@@ -15,22 +15,24 @@ export class HomePage {
 
   lista = []
   constructor(public navCtrl: NavController,
-     public platform:Platform, public prefs: AppPreferences, private listaProvider: ListaProvider) {
-    if(this.lista.length == 0){
-      this.carregaFilmes();
-    }
-    else{
-      console.log("Nao e necessario baixar os dados");
-    }
-    
+    public platform:Platform, public prefs: AppPreferences, private listaProvider: ListaProvider) {
+      this.platform.ready().then(() => this.prefs.fetch(null,'lista').then(x => {
+        this.lista = x || [];
+        console.log(x);
+        if(this.lista.length == 0){
+          this.carregaFilmes();
+        }
+      else{
+        console.log("Nao e necessario baixar os dados");
+      }
+      })).catch(erro => console.log("Nao foi possivel recuperar dados"));    
   }
   
   carregaFilmes(){   
     var y = [];
     for(var i = 1; i<26; i++){
-      this.listaProvider.getFilmes(i).then(x => this.lista= y.concat(this.lista, x.results));
+      this.listaProvider.getFilmes(i).then(x => this.lista= y.concat(this.lista, x.results)).then(() => this.prefs.store(null,'lista', this.lista));
     }
-    this.platform.ready().then(() => this.prefs.store(null,'lista', this.lista));
     console.log("Dados baixados");
   }  
 

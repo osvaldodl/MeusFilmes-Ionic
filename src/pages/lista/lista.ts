@@ -22,8 +22,12 @@ export class ListaPage {
   historico = [];
   
   constructor( public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public prefs: AppPreferences) {
-    this.platform.ready().then(() => prefs.fetch(null,'lista').then(x => this.lista = x)).catch(erro => console.log("Nao foi possivel recuperar dados"));
-    this.platform.ready().then(() => prefs.fetch(null,'historico').then(x => this.historico = x )).catch(erro => console.log("Nao foi possivel recuperar dados"));  
+    this.platform.ready().then(() => prefs.fetch(null,'lista').then(x => {
+      this.lista = x || [];
+    })).catch(erro => console.log("Nao foi possivel recuperar dados"));
+    this.platform.ready().then(() => prefs.fetch(null,'historico').then(x => {
+      this.historico = x || [];
+    })).catch(erro => console.log("Nao foi possivel recuperar dados"));  
   }
 
   ionViewDidLoad() {
@@ -46,12 +50,24 @@ export class ListaPage {
   }
 
   backHome(event){
-    this.navCtrl.pop();
+    this.navCtrl.popToRoot();
   }
 
   itemTapped(event, list){
-    this.platform.ready().then(() => this.historico.push(list)) ;
-    this.platform.ready().then(() => this.prefs.store(null,'historico', this.historico)).catch(erro => console.log("Nao foi possivel gravar"));
-    this.navCtrl.push(DetalhesPage, {lista: list})
+    this.platform.ready().then(() => {
+      this.historico.unshift(list);
+      for(let i = 1; i < this.historico.length; i++){
+        if(this.historico[i]['id'] == list['id']){
+            this.historico.splice(i, 1);
+            break;
+        }
+      }  
+      if(this.historico.length > 100){
+        this.historico.pop;
+      }
+      this.prefs.store(null,'historico', this.historico);
+      let rotulo = 'lista';
+      this.navCtrl.push(DetalhesPage, {lista: list, parent: rotulo});
+    }).catch(erro => console.log("Nao foi possivel gravar"));    
   }
 }

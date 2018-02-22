@@ -18,7 +18,7 @@ export class CreditosPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
   backHome(event){
-    this.navCtrl.pop();
+    this.navCtrl.popToRoot();
     }
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreditosPage');
