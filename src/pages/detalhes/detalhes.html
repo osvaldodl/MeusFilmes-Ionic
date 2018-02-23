@@ -34,7 +34,7 @@
   <ion-content padding [style.background] ="'url(https://image.tmdb.org/t/p/w500/'+lista.backdrop_path+')'" [style.background-size]="'100% ' + shouldHeight" >   
       <a href="https://www.youtube.com/watch?v={{trailer}}"><img src="https://image.tmdb.org/t/p/w500{{lista.poster_path}}" alt="themoviedb.png" class="imagem"></a>
       <div text-center>
-        <h1>{{lista.title}}</h1>
+        <h1><b>{{lista.title}}</b></h1>
       </div>
       <p text-center>Avalaiação dos Usuários:</p>
         <div class="c100 p{{avaliacao}} center small green">
@@ -45,17 +45,19 @@
             </div>
           </div>
         <div text-center>
-        <p>Idioma: {{getIdioma(lista.original_language)}}
-        <br>Titulo Original: {{lista.original_title}}
-        <br>Lançamento: {{dataConvertida(lista.release_date)}}
-        </p>
-      </div>
+          <p>Idioma: {{getIdioma(lista.original_language)}}
+            <br>Titulo Original: {{lista.original_title}}
+            <br>Lançamento: {{dataConvertida(lista.release_date)}}
+          </p>
+        </div>
       <ion-list no-lines>
-        <h1 text-center>Gêneros</h1>    
-        <p text-center *ngFor="let listGeneros of lista.genre_ids">{{getGeneroPorId(listGeneros)}}</p>
+        <h2 text-center><b>Gêneros</b></h2>    
+        <div text-center>
+          <span *ngFor="let listGeneros of lista.genre_ids">{{getGeneroPorId(listGeneros)}}<br></span>
+        </div>
       </ion-list>
       <div text-center>
-        <h1>Sinopse</h1>
+        <h2><b>Sinopse</b></h2>
         <br>{{lista.overview}}<br>
       </div>  
 </ion-content>
